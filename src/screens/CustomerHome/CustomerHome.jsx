@@ -5,7 +5,7 @@ import {
   Text,
   View,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import IconAnt from "react-native-vector-icons/AntDesign"; // Use the appropriate icon set
 import IconMat from "react-native-vector-icons/MaterialIcons";
 import AppDrawer from "../../components/Hamburger/Hamburger";
@@ -17,21 +17,62 @@ import UserDetails from "../UserDetails/UserDetails";
 import ViewBill from "../ViewBill/ViewBill";
 import Feedback from "../Feedback/Feedback";
 import BillSummary from "../ViewBill/BillSummary";
-
-//DUMMY
-
+import axios from "axios";
+import { BASE_URL } from "../../config";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import NetInfo from "@react-native-community/netinfo";
 
 const Stack = createNativeStackNavigator();
 
 // SCREEN
 export const Home = () => {
+  const [userData, setUserData] = useState(null);
+
   const navigation = useNavigation();
+  const [name, setName] = useState(null);
+  //!GET USER DETAILS USING ENDPOINT
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const state = await NetInfo.fetch();
+        const token = await AsyncStorage.getItem("userToken");
+        const tokenJWT = JSON.parse(token);
+
+       setName(tokenJWT.name);
+
+        if (state.isConnected) {
+          const response = await axios.get(`${BASE_URL}/user/getuserdetail`, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${tokenJWT.token}`,
+            },
+          });
+
+          const userInfo = response.data;
+
+          // Store the response data in AsyncStorage
+          await AsyncStorage.setItem("userInfo", JSON.stringify(userInfo));
+          setUserData(userInfo);
+          // console.log(userInfo);
+        } else {
+          const localUserData = await AsyncStorage.getItem("userInfo");
+          if (localUserData) {
+            setUserData(JSON.parse(localUserData));
+          }
+        }
+      } catch (error) {
+        console.log("Ran into an error", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <>
-      <AppDrawer  />
+      <AppDrawer username={name} />
 
-      <ScrollView >
+      <ScrollView>
         <CarouselMain />
         {/* NAME AND MENU LINES */}
 
@@ -45,8 +86,12 @@ export const Home = () => {
               </Text> */}
             </View>
             <View style={styles.dataContainer}>
-              <Text style={styles.userData1}>DMP-SCLX</Text>
-              <Text style={styles.userData2}>1000</Text>
+              <Text style={styles.userData1}>
+                {userData?.user_id.slice(0, -4)}
+              </Text>
+              <Text style={styles.userData2}>
+                {userData?.user_id.slice(-4)}
+              </Text>
               <TouchableOpacity
                 onPress={() => navigation.navigate("UserDetails")}
                 style={styles.ViewMore}
@@ -64,7 +109,9 @@ export const Home = () => {
               </Text> */}
             </View>
             <View style={styles.dataContainer}>
-              <Text style={styles.userData1}>SymBios Starter</Text>
+              <Text style={styles.userData1}>
+                {userData?.packagename.split("-")[0].trim()}
+              </Text>
               <Text style={styles.userData2}>30 Mbps</Text>
             </View>
           </View>
@@ -80,7 +127,7 @@ export const Home = () => {
             <View style={[styles.dataContainer, styles.dataFlexContainer]}>
               <View>
                 <Text style={styles.userData1}>Your Bill</Text>
-                <Text style={styles.userData2}>₹1024.46</Text>
+                <Text style={styles.userData2}>₹{userData?.totaloutstanding}</Text>
               </View>
               <View>
                 <Text style={styles.userData1}>Due Date</Text>
@@ -91,7 +138,7 @@ export const Home = () => {
                     fontFamily: "Urbanist-ExtraBold",
                   }}
                 >
-                  15 Mar 24
+                   {new Date(userData?.lastdateofpayment).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' })}
                 </Text>
               </View>
             </View>
@@ -137,10 +184,7 @@ export const Home = () => {
             </View>
           </View>
         </View>
-
-       
       </ScrollView>
-      
     </>
   );
 };

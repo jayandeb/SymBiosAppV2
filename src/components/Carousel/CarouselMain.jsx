@@ -31,7 +31,7 @@ function CarouselMain() {
         height={width / 2}
         autoPlay={true}
         data={data}
-        scrollAnimationDuration={1000}
+        scrollAnimationDuration={2000}
         onSnapToItem={(index) => index}
         renderItem={({ index }) => (
           <View

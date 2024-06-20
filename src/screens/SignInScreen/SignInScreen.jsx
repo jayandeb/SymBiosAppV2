@@ -41,16 +41,16 @@ const SignInScreen = () => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
 
-  const [items, setItems] = useState([
-    { label: "Dimapur", value: "DMP-SXLX" },
-    { label: "Kohima", value: "KOH-SCLX" },
-    { label: "Mokokchung", value: "MKG-SCLX" },
-    { label: "Karbi Anglong", value: "LKB-SCLX" },
-    { label: "Tuensang", value: "NLTSG" },
-    { label: "Tegnoupal", value: "MNTNL" },
-    { label: "Kakching", value: "MNKCG" },
-    { label: "Zunheboto", value: "NLZTO" },
-  ]);
+  // const [items, setItems] = useState([
+  //   { label: "Dimapur", value: "DMP-SXLX" },
+  //   { label: "Kohima", value: "KOH-SCLX" },
+  //   { label: "Mokokchung", value: "MKG-SCLX" },
+  //   { label: "Karbi Anglong", value: "LKB-SCLX" },
+  //   { label: "Tuensang", value: "NLTSG" },
+  //   { label: "Tegnoupal", value: "MNTNL" },
+  //   { label: "Kakching", value: "MNKCG" },
+  //   { label: "Zunheboto", value: "NLZTO" },
+  // ]);
 
   return (
     <ScrollView>
@@ -62,7 +62,7 @@ const SignInScreen = () => {
         />
 
         {/* custom component */}
-        <DropdownPicker
+        {/* <DropdownPicker
           open={open}
           value={value}
           items={items}
@@ -73,7 +73,7 @@ const SignInScreen = () => {
           listMode="SCROLLVIEW"
 
           // searchable={true}
-        />
+        /> */}
 
         <CustomInputs
           value={username}

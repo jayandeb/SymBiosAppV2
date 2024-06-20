@@ -9,12 +9,10 @@ export const AuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [userToken, setUserToken] = useState(null);
 
-
   //AUTHENTICATION
   const login = async (username, password) => {
     setIsLoading(true);
 
- 
     const response = await axios
       .post(
         `${BASE_URL}/Auth/login`,
@@ -29,51 +27,36 @@ export const AuthProvider = ({ children }) => {
         }
       )
       .then((response) => {
-     
-        let userInfo = response.token;
+        let userInfo = response.data.data.user;
         setUserToken(userInfo);
-        AsyncStorage.setItem("userToken", userInfo);
+        // AsyncStorage.setItem("userToken", userInfo);
 
-        console.log(userInfo);
+        const userInfoStringified = JSON.stringify(userInfo);
+
+        AsyncStorage.setItem("userToken", userInfoStringified);
       })
       .catch((error) => {
         if (error.response) {
-            // The request was made and the server responded with a status code
-            console.log('Error status code:', error.response.status);
-            
-            if (error.response.status === 401) {
+          console.log("Error status code:", error.response.status);
 
-                console.log('Invalid credentials');
-
-            } else if (error.response.status === 404) {
-              
-                console.log('User not found');
-               
-            } 
-            else if (error.response.status === 500) {
-              
-                console.log('Internal Server Error');
-               
-            } else {
-              
-                console.log('Other error:', error.response.data);
-                
-            }
+          if (error.response.status === 401) {
+            console.log("Invalid credentials");
+          } else if (error.response.status === 404) {
+            console.log("User not found");
+          } else if (error.response.status === 500) {
+            console.log("Internal Server Error");
+          } else {
+            console.log("Other error:", error.response.data);
+          }
         } else if (error.request) {
-          
-            console.log('No response received:', error.request);
-         
+          console.log("No response received:", error.request);
         } else {
-            console.log('Error:', error.message);
-          
+          console.log("Error:", error.message);
         }
       });
 
     setIsLoading(false);
   };
-
-
-
 
   //!ASYNC STORAGE
   const logout = () => {
@@ -93,8 +76,6 @@ export const AuthProvider = ({ children }) => {
       console.log(`isLogged in error ${e}`);
     }
   };
-
-
 
   useEffect(() => {
     isLoggedIn();

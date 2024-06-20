@@ -47,7 +47,7 @@ const ChangePassword = () => {
               <TouchableOpacity onPress={() => setValue('second')}  >
                 <View style={styles.radioButtonContainer}>
                   <RadioButton value="second" color='#3073FF' />
-                  <Text selectable={true} style={styles.radioButtonText}>Internet Login</Text>
+                  <Text selectable={true}  style={styles.radioButtonText}>Internet Login</Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -137,7 +137,8 @@ const styles = StyleSheet.create({
   },
   radioButtonText: {
     fontSize: 18,
-    fontFamily: 'Urbanist-Bold'
+    fontFamily: 'Urbanist-Bold',
+    color: '#1E232C'
   }
 
 })

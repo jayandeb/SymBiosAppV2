@@ -32,6 +32,7 @@ function AppStack() {
           marginLeft: -20,
           fontFamily: "Urbanist-Bold",
           fontSize: 16,
+          color: "#1E232C",
         },
       }}
       backBehavior="none"
@@ -41,7 +42,7 @@ function AppStack() {
         name="Dashboard"
         component={CustomerHome}
         options={{
-          drawerIcon: () => <IconMat name="space-dashboard" size={24} />,
+          drawerIcon: () => <IconMat name="space-dashboard" size={24} color={"#1E232C"} />,
         }}
       />
 
@@ -49,7 +50,7 @@ function AppStack() {
         name="My Bills"
         component={MyBills}
         options={{
-          drawerIcon: () => <IconMat name="receipt-long" size={24} />,
+          drawerIcon: () => <IconMat name="receipt-long" size={24} color={"#1E232C"}/>,
         }}
       />
 
@@ -57,7 +58,7 @@ function AppStack() {
         name="Payments"
         component={Payments}
         options={{
-          drawerIcon: () => <IconMat name="payment" size={24} />,
+          drawerIcon: () => <IconMat name="payment" size={24} color={"#1E232C"}/>,
         }}
       />
 
@@ -65,14 +66,14 @@ function AppStack() {
         name="Internet Usage"
         component={InternetUsage}
         options={{
-          drawerIcon: () => <IconMat name="data-usage" size={24} />,
+          drawerIcon: () => <IconMat name="data-usage" size={24} color={"#1E232C"}/>,
         }}
       />
       <Drawer.Screen
         name="Plans"
         component={Plans}
         options={{
-          drawerIcon: () => <IconMat name="data-exploration" size={24} />,
+          drawerIcon: () => <IconMat name="data-exploration" size={24} color={"#1E232C"}/>,
         }}
       />
 
@@ -80,7 +81,7 @@ function AppStack() {
         name="Request Plan Change"
         component={RequestPlanChange}
         options={{
-          drawerIcon: () => <IconMat name="change-circle" size={24} />,
+          drawerIcon: () => <IconMat name="change-circle" size={24} color={"#1E232C"}/>,
         }}
       />
 
@@ -88,14 +89,14 @@ function AppStack() {
         name="Change Password"
         component={ChangePassword}
         options={{
-          drawerIcon: () => <IconMat name="password" size={24} />,
+          drawerIcon: () => <IconMat name="password" size={24} color={"#1E232C"}/>,
         }}
       />
       <Drawer.Screen
         name="Feedback"
         component={Feedback}
         options={{
-          drawerIcon: () => <IconMat name="feedback" size={24} />,
+          drawerIcon: () => <IconMat name="feedback" size={24} color={"#1E232C"}/>,
         }}
       />
     </Drawer.Navigator>

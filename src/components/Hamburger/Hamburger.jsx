@@ -11,7 +11,7 @@ import {
 
 // };
 
-const AppDrawer = ({ title='Jayanta' }) => {
+const AppDrawer = ({username}) => {
   const navigation = useNavigation();
 
   //MENU DRAWER FUNC
@@ -23,7 +23,7 @@ const AppDrawer = ({ title='Jayanta' }) => {
     <View style={styles.container}>
       <View style={{ flexDirection: "column" }}>
         <Text style={styles.title}>Welcome back!</Text>
-        <Text style={styles.title1}>{title}</Text>
+        <Text style={styles.title1}>{username}</Text>
       </View>
       <TouchableOpacity onPress={onMenuPress}  style={{
             elevation: 10,

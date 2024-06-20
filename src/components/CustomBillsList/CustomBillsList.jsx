@@ -98,6 +98,7 @@ const styles = StyleSheet.create({
   },
   text:{
     fontFamily:'Urbanist-Bold',
-    fontSize:18
+    fontSize:18,
+    color:'#1E232C'
   }
 })
