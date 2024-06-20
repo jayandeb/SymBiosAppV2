@@ -29,6 +29,7 @@ const CustomInputs= ({ value, setValue, placeholder,secureTextEntry})=> {
         placeholder={placeholder}
         style={styles.input}
         secureTextEntry={secureTextEntry}
+        placeholderTextColor="#1E232C"
       ></TextInput>
     </View>
   )
@@ -44,10 +45,12 @@ const styles = StyleSheet.create({
     borderWidth: .2,
     paddingHorizontal: 10,
     marginVertical: 10,
+
   },
   input: {
 
     fontFamily: 'Urbanist-Medium',
+    color:'#1E232C'
   }
 })
 
